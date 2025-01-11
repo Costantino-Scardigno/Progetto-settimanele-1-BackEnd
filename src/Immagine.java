@@ -18,4 +18,5 @@ public class Immagine  extends ElementoMultimediale implements Luminosità {
     }
 
 
+
 }
