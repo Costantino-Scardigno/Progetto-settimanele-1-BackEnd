@@ -1,11 +1,9 @@
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ElementoMultimediale[] elementi= new ElementoMultimediale[5];
+        ElementoMultimediale[] elementi = new ElementoMultimediale[5];
 
         for (int i = 0; i < elementi.length; i++) {
             System.out.println("Inserisci tipo di elemento (1 = Audio, 2 = Video, 3 = Immagine): ");
@@ -36,8 +34,8 @@ public class Main {
             }
         }
 
+        int scelta ;
 
-        int scelta;
         do {
             System.out.println("Scegli un elemento da eseguire (1-5 per elemento, 0 per uscire): ");
             scelta = scanner.nextInt();
@@ -52,13 +50,46 @@ public class Main {
                 } else if (elemento instanceof Immagine) {
                     ((Immagine) elemento).show();
                 }
+
+
+                scanner.nextLine();
+                while (true) {
+                    System.out.println("Digita v+/v- (per gestire il volume di elementi di tipo audio e video), oppure digita  l+/l- (per gestire la  luminosità di elementi di tipo video o immagine), o digita 'esci' per tornare al menu principale:");
+                    String comando = scanner.nextLine();
+
+                    if (comando.equals("v+")) {
+                        if (elemento instanceof Audio) {
+                            ((Audio) elemento).alzaVolume();
+                        } else {
+                            System.out.println("Questo comando non è applicabile a questo elemento.");
+                        }
+                    } else if (comando.equals("v-")) {
+                        if (elemento instanceof Audio) {
+                            ((Audio) elemento).abbassaVolume();
+                        } else {
+                            System.out.println("Questo comando non è applicabile a questo elemento.");
+                        }
+                    } else if (comando.equals("l+")) {
+                        if (elemento instanceof Video || elemento instanceof Immagine) {
+                            ((Luminosità) elemento).aumentaLuminosita();
+                        } else {
+                            System.out.println("Questo comando non è applicabile a questo elemento.");
+                        }
+                    } else if (comando.equals("l-")) {
+                        if (elemento instanceof Video || elemento instanceof Immagine) {
+                            ((Luminosità) elemento).diminuisciLuminosita();
+                        } else {
+                            System.out.println("Questo comando non è applicabile a questo elemento.");
+                        }
+                    } else if (comando.equals("esci")) {
+                        break;
+                    } else {
+                        System.out.println("Comando non riconosciuto.");
+                    }
+                }
             }
         } while (scelta != 0);
+
         scanner.close();
     }
-
-
-
-
-
-    }
+}
